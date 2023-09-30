@@ -5,6 +5,7 @@ const { usersRouter } = require("./routes/users.routes");
 const { orderRouter } = require("./routes/order.routes");
 const { mealsRouter } = require("./routes/meals.routes");
 const { Connection } = require("./config/db");
+const { Authenticator } = require("./middleware/authentication.middleware");
 const app=express() ;
 require("dotenv").config() ;
 app.use(cors()) ;
@@ -14,9 +15,9 @@ app.get("/",(req,res)=>{
     res.send("Welcome To Khana-Khajana Backend HomePage") ;
 })
 app.use("/user",usersRouter)
-app.use("/moments",momentsRouter)
-app.use("/meals",mealsRouter)
-app.use("/order",orderRouter)
+app.use("/moments",Authenticator,momentsRouter)
+app.use("/meals",Authenticator,mealsRouter)
+app.use("/order",Authenticator, orderRouter)
 app.listen(process.env.port,async()=>{
 try{
     await Connection
