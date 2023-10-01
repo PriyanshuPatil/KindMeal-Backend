@@ -17,7 +17,7 @@ app.get("/",(req,res)=>{
 app.use("/user",usersRouter)
 app.use("/moments",momentsRouter)
 app.use("/meals",mealsRouter)
-app.use("/order",Authenticator, orderRouter)
+app.use("/order", orderRouter)
 app.listen(process.env.port,async()=>{
 try{
     await Connection
