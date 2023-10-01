@@ -15,8 +15,8 @@ app.get("/",(req,res)=>{
     res.send("Welcome To Khana-Khajana Backend HomePage") ;
 })
 app.use("/user",usersRouter)
-app.use("/moments",Authenticator,momentsRouter)
-app.use("/meals",Authenticator,mealsRouter)
+app.use("/moments",momentsRouter)
+app.use("/meals",mealsRouter)
 app.use("/order",Authenticator, orderRouter)
 app.listen(process.env.port,async()=>{
 try{
