@@ -1,7 +1,7 @@
 const { todoModel } = require("../model/todo.model");
 
 const getTodo=async(req,res)=>{
-    let username=req.params.id
+    let username=req.params.username
 try{
 let todo_data=await todoModel.find({username}) ;
 res.status(200).send(todo_data)
