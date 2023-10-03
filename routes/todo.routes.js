@@ -3,7 +3,7 @@ const { getTodo, getSingleTodo, updateSingleTodo, deleteSingleTodo, postSingleTo
 const todoRouter=express.Router() ;
 todoRouter.get("/",getTodo);
 todoRouter.get("/:id",getSingleTodo)
-todoRouter.get("/:username",getUserTodo)
+todoRouter.get("/user:username",getUserTodo)
 todoRouter.post("/",postSingleTodo)
 todoRouter.patch("/:id",updateSingleTodo)
 todoRouter.delete("/:id",deleteSingleTodo)
