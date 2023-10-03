@@ -1,6 +1,15 @@
 const { todoModel } = require("../model/todo.model");
 
 const getTodo=async(req,res)=>{
+try{
+let todo_data=await todoModel.find() ;
+res.status(200).send(todo_data)
+}catch(err){
+    res.status(404).send(err.message)
+}
+}
+
+const getUserTodo=async(req,res)=>{
     let username=req.params.username
 try{
 let todo_data=await todoModel.find({username}) ;
@@ -9,7 +18,6 @@ res.status(200).send(todo_data)
     res.status(404).send(err.message)
 }
 }
-
 
 const getSingleTodo=async(req,res)=>{
 let id=req.params.id
@@ -59,4 +67,4 @@ res.status(404).send(err.message)
 }
 }
 
-module.exports={getTodo,getSingleTodo,updateSingleTodo,deleteSingleTodo,postSingleTodo} ;
+module.exports={getTodo,getSingleTodo,updateSingleTodo,deleteSingleTodo,postSingleTodo,getUserTodo} ;
