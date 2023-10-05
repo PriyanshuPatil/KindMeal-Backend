@@ -5,6 +5,8 @@ const { usersRouter } = require("./routes/users.routes");
 const { orderRouter } = require("./routes/order.routes");
 const { mealsRouter } = require("./routes/meals.routes");
 const { Connection } = require("./config/db");
+const { appoinmentRouter } = require("./routes/appoinment.routes");
+const { bookingRouter } = require("./routes/booking.routes");
 const { Authenticator } = require("./middleware/authentication.middleware");
 const { todoRouter } = require("./routes/todo.routes");
 const app=express() ;
@@ -17,6 +19,9 @@ app.get("/",(req,res)=>{
 })
 app.use("/user",usersRouter)
 app.use("/moments",momentsRouter)
+
+app.use("/appoinment",appoinmentRouter);
+app.use("/booking",bookingRouter);
 app.use("/meals",mealsRouter)
 app.use("/order", orderRouter)
 app.use("/todo",todoRouter)
