@@ -9,13 +9,15 @@ const { appoinmentRouter } = require("./routes/appoinment.routes");
 const { bookingRouter } = require("./routes/booking.routes");
 const { Authenticator } = require("./middleware/authentication.middleware");
 const { todoRouter } = require("./routes/todo.routes");
+const { oemSpecsRouter } = require("./routes/oemSpecs.routes");
+const { marketplaceInventorRouter } = require("./routes/marketplaceInventor.routes");
 const app=express() ;
 require("dotenv").config() ;
 app.use(cors()) ;
 app.use(express.json()) ;
 
 app.get("/",(req,res)=>{
-    res.send("Welcome To Khana-Khajana Backend HomePage") ;
+    res.send("Welcome To Backend HomePage") ;
 })
 app.use("/user",usersRouter)
 app.use("/moments",momentsRouter)
@@ -25,6 +27,9 @@ app.use("/booking",bookingRouter);
 app.use("/meals",mealsRouter)
 app.use("/order", orderRouter)
 app.use("/todo",todoRouter)
+app.use("/marketplaceinventory",marketplaceInventorRouter);
+app.use("/oemspecs",oemSpecsRouter);
+
 app.listen(process.env.port,async()=>{
 try{
     await Connection
