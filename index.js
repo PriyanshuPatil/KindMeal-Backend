@@ -9,6 +9,8 @@ const { appoinmentRouter } = require("./routes/appoinment.routes");
 const { bookingRouter } = require("./routes/booking.routes");
 const { Authenticator } = require("./middleware/authentication.middleware");
 const { todoRouter } = require("./routes/todo.routes");
+const { projectRouter } = require("./routes/project.routes");
+const { podcastRouter } = require("./routes/podcast.routes");
 const { oemSpecsRouter } = require("./routes/oemSpecs.routes");
 const { marketplaceInventorRouter } = require("./routes/marketplaceInventor.routes");
 const app=express() ;
@@ -21,7 +23,8 @@ app.get("/",(req,res)=>{
 })
 app.use("/user",usersRouter)
 app.use("/moments",momentsRouter)
-
+app.use("/project",projectRouter);
+app.use("/podcast",podcastRouter);
 app.use("/appoinment",appoinmentRouter);
 app.use("/booking",bookingRouter);
 app.use("/meals",mealsRouter)
