@@ -13,6 +13,7 @@ const { projectRouter } = require("./routes/project.routes");
 const { podcastRouter } = require("./routes/podcast.routes");
 const { oemSpecsRouter } = require("./routes/oemSpecs.routes");
 const { marketplaceInventorRouter } = require("./routes/marketplaceInventor.routes");
+const { ContactRouter } = require("./routes/phonebook.routes");
 const app=express() ;
 require("dotenv").config() ;
 app.use(cors()) ;
@@ -25,6 +26,7 @@ app.use("/user",usersRouter)
 app.use("/moments",momentsRouter)
 app.use("/project",projectRouter);
 app.use("/podcast",podcastRouter);
+app.use("/contact",ContactRouter);
 app.use("/appoinment",appoinmentRouter);
 app.use("/booking",bookingRouter);
 app.use("/meals",mealsRouter)
