@@ -1,26 +1,11 @@
-const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-const { userModel } = require("../model/user.model");
+const bcrypt = require("bcrypt");
+const { userModel} = require("../model/user.model");
 
 const getUser = async (req, res) => {
   try {
     const user_Data = await userModel.find();
     res.send(user_Data);
-  } catch (err) {
-    res.status(400).send({ msg: err.message });
-  }
-};
-
-const getSingleUser = async (req, res) => {
-  const id = req.params.id;
-  //   console.log(id);
-  try {
-    const user_Data = await userModel.findById(id);
-    if (user_Data) {
-      res.send(user_Data);
-    } else {
-      res.send({ msg: "Account is Not Present" });
-    }
   } catch (err) {
     res.status(400).send({ msg: err.message });
   }
@@ -39,6 +24,22 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getSingleUser = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user_Data = await userModel.findById(id);
+    if (user_Data) {
+      res.send(user_Data);
+    } else {
+      res.send({ msg: "Account is Not Present" });
+    }
+  } catch (err) {
+    res.status(400).send({ msg: err.message });
+  }
+};
+
+
+
 const deleteUser = async (req, res) => {
   const id = req.params.id;
   try {
@@ -51,15 +52,17 @@ const deleteUser = async (req, res) => {
 
 const register = async (req, res) => {
   try {
+    console.log(req.body)
     let userdata = await userModel.find({ email: req.body.email });
     if (userdata.length == 0) {
       bcrypt.hash(req.body.password, 5, async (err, hash) => {
         if (err) {
-          //   console.log(err);
           res.status(400).send({ msg: "Error in password hashing" });
         } else {
+
           const newuser = new userModel({ ...req.body, password: hash });
           await newuser.save();
+          console.log("saved")
           res.status(201).send({ msg: "User Succesfully Register" });
         }
       });
@@ -67,25 +70,29 @@ const register = async (req, res) => {
       res.status(400).send({ msg: "User is allready present" });
     }
   } catch (err) {
-    // console.log(err);
     res.status(400).send({ msg: err.message});
+    console.log(err)
   }
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  console.log(req.body)
+  const { email, password } = req.body.user_data;
   try {
     let userdata = await userModel.find({ email });
     if (userdata.length > 0) {
+       console.log(userdata)
       bcrypt.compare(password, userdata[0].password, (err, result) => {
         if (result) {
-          const token = jwt.sign({ userId: userdata[0]._id }, "khana_app");
-          res.send({ msg: "Login Succesfully", token: token });
+          const token = jwt.sign({ userId: userdata[0]._id }, "flex_money");
+          res.send({ msg: "Login Succesfully", token: token , email ,username: userdata[0].username,userId:userdata[0]._id });
         } else {
+
           res.status(400).send({ msg: "Password Is Wrong" });
         }
       });
     } else {
+      console.log(email)
       res.status(404).send({ msg: "Email is not Registered" });
     }
   } catch (err) {
@@ -94,9 +101,8 @@ const login = async (req, res) => {
 };
 module.exports = {
   getUser,
-  getSingleUser,
+  register,
+  login,getSingleUser,
   updateUser,
   deleteUser,
-  register,
-  login,
 };

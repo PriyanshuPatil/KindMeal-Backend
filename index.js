@@ -1,7 +1,7 @@
 const express=require("express") ;
 const cors=require("cors") ;
 const { momentsRouter } = require("./routes/moments.routes");
-const { usersRouter } = require("./routes/users.routes");
+const { usersRouter } = require("./routes/user.route");
 const { orderRouter } = require("./routes/order.routes");
 const { mealsRouter } = require("./routes/meals.routes");
 const { Connection } = require("./config/db");
@@ -23,7 +23,7 @@ app.use(express.json()) ;
 app.get("/",(req,res)=>{
     res.send("Welcome To Backend HomePage") ;
 })
-app.use("/user",usersRouter)
+app.use("/user", usersRouter);
 app.use('/admission',admissionRouter)
 app.use("/moments",momentsRouter)
 app.use("/project",projectRouter);
