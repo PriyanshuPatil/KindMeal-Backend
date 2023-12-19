@@ -14,6 +14,7 @@ const { podcastRouter } = require("./routes/podcast.routes");
 const { oemSpecsRouter } = require("./routes/oemSpecs.routes");
 const { marketplaceInventorRouter } = require("./routes/marketplaceInventor.routes");
 const { ContactRouter } = require("./routes/phonebook.routes");
+const {admissionRouter} = require('./routes/admission.route')
 const app=express() ;
 require("dotenv").config() ;
 app.use(cors()) ;
@@ -23,6 +24,7 @@ app.get("/",(req,res)=>{
     res.send("Welcome To Backend HomePage") ;
 })
 app.use("/user",usersRouter)
+app.use('/admission',admissionRouter)
 app.use("/moments",momentsRouter)
 app.use("/project",projectRouter);
 app.use("/podcast",podcastRouter);
